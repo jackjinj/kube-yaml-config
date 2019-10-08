@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: neo4j
+  name: neo4j
+  namespace: default
+spec:
+  clusterIP: 10.254.110.235
+  ports:
+  - name: bolt
+    port: 7687
+    protocol: TCP
+    targetPort: 7687
+  - name: http
+    port: 7474
+    protocol: TCP
+    targetPort: 7474
+
+  selector:
+    run: neo4j
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
