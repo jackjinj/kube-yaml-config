@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: neo4j
+  name: neo4j
+spec:
+  containers:
+  - image: neo4j:3.5
+    imagePullPolicy: IfNotPresent
+    name: neo4j
+    volumeMounts:
+    - mountPath: /log
+      name: log-volume
+    - mountPath: /data
+      name: data-volume
+    ports:
+    - name: bolt
+      containerPort: 7687
+    - name: http7
+      containerPort: 7474
+  volumes:
+  - name: log-volume
+    hostPath:
+      path: /log
+      type: Directory
+  - name: data-volume
+    hostPath:
+      path: /data
+      type: Directory
+  nodeName: node2
